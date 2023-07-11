@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace Hesap_Makinesi
 {
@@ -10,11 +12,15 @@ namespace Hesap_Makinesi
     {
         static void Main(string[] args)
         {
-
-            int sayi1, sayi2;
+        
+        int sayi1, sayi2;
 
             double sonuc;
             string islem;
+            FileStream fs = new FileStream("C:\\HesapMakinesi.txt", FileMode.Append, FileAccess.Write, FileShare.Write);
+            StreamWriter sw = new StreamWriter(fs);
+            DateTime bugun = DateTime.Now;
+            sw.WriteLine("İşlemi " + bugun + " tarihinde yaptın.");
 
             Console.WriteLine("Birinci sayıyı giriniz:");
             sayi1 = Convert.ToInt32(Console.ReadLine());
@@ -22,48 +28,61 @@ namespace Hesap_Makinesi
             Console.WriteLine("İkinci sayıyı giriniz:");
             sayi2 = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("İşlem seçiniz (+,-,/,*)");
+            Console.WriteLine("Çarpma işlemi için 1\nToplama işlemi için 2\nÇıkarma işlemi için 3\n" +
+                "Bölme işlemi için 4");
             islem = Console.ReadLine();
-
-            if (islem == "*")
-            {
-                sonuc = sayi1 * sayi2;
-                Console.WriteLine("Çarpma işleminin sonucu:" + sonuc);
+            
+                if (islem == "1")
+                {
+                    sonuc = sayi1 * sayi2;
+                    sw.WriteLine("Çarpma işleminin sonucu:" + sonuc);
+                Console.WriteLine(sonuc);
+                    Console.ReadKey();
+                
+                sw.Close();
+                }
+                if (islem == "2")
+                {
+                    sonuc = sayi1 + sayi2;
+                    sw.WriteLine("Toplama işleminin sonucu:" + sonuc);
+                Console.WriteLine(sonuc);
                 Console.ReadKey();
-            }
-            if (islem == "+")
-            {
-                sonuc = sayi1 + sayi2;
-                Console.WriteLine("Toplama işleminin sonucu:" + sonuc);
+                sw.Close();
+                }
+                if (islem == "3")
+                {
+                    sonuc = sayi1 - sayi2;
+                    sw.WriteLine("Çıkarma işleminin sonucu:" + sonuc);
+                Console.WriteLine(sonuc);
                 Console.ReadKey();
-            }
-            if (islem == "-")
-            {
-                sonuc = sayi1 - sayi2;
-                Console.WriteLine("Çıkarma işleminin sonucu:" + sonuc);
-                Console.ReadKey();
-            }
-            if (islem == "/")
+                sw.Close();
+                }
+            if (islem == "4")
             {
                 if (sayi1 == 0 && sayi2 == 0)
                 {
-                    Console.WriteLine("Belirsiz");
+                    sw.WriteLine("Bölmenin sonucu :Belirsiz");
                     Console.ReadKey();
+                    sw.Close();
                 }
-                else if( sayi2 == 0)
+                else if (sayi2 == 0)
                 {
-                    Console.WriteLine("Tanımsız");
+                    sw.WriteLine(" Bölmenin sonucu:Tanımsız");
                     Console.ReadKey();
+                    sw.Close();
                 }
                 else
                 {
                     sonuc = sayi1 / sayi2;
-                    Console.WriteLine("Bölme işleminin sonucu:" + sonuc);
+                    sw.WriteLine("Bölme işleminin sonucu:" + sonuc);
+                    Console.WriteLine(sonuc);
                     Console.ReadKey();
+                    sw.Close();
                 }
-                
             }
+                Console.WriteLine("Kayıt Eklendi.");
+                Console.ReadKey();
+        }
 
         }
-    }
 }
