@@ -80,8 +80,6 @@ namespace Hesap_Makinesi
                     sw.Close();
                 }
             }
-                Console.WriteLine("Kayıt Eklendi.");
-                Console.ReadKey();
         }
 
         }
